@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr" ng-app="myApp">
+<html lang="fr" ng-app="myApp" ng-controller="myCtrl">
     <head>
         <meta charset="utf-8" />
-        <title>Accueil</title>
+        <title>{{ Page.title() }}</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 
@@ -11,5 +11,6 @@
     </head>
     <body>
         <div ng-view>  </div>
+
     </body>
 </html>
