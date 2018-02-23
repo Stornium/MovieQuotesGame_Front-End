@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" ng-app="routeApp">
+<html lang="fr" ng-app="myApp">
     <head>
         <meta charset="utf-8" />
-        <title>Route App</title>
-        <link rel="stylesheet" href="ressources/css/style.css">
+        <title>Accueil</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
         <script src="js/script.js"></script>
+        <link rel="stylesheet" href="ressources/css/style.css">
     </head>
     <body>
-        <div ng-view>
-        </div>
-        <nav>
-            <a href="#/accueil" class="btn btn-primary">Page d'accueil</a>
-            <a href="#/connexion" class="btn btn-success">Page de contact</a>
-        </nav>
+        <div ng-view>  </div>
     </body>
 </html>
