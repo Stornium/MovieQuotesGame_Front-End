@@ -1,6 +1,12 @@
-.loggingForm {
+.loginForm {
   margin: auto;
   width: 50%;
   border: 3px solid black;
   padding: 10px;
+}
+
+#accueil-logo {
+  width: 100px;
+  height: 100px;
+  border: 3px solid black;
 }

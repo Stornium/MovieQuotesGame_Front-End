@@ -1,16 +1,16 @@
-<!-- partials/contact.html -->
-<section class="contact">
-    <h2>Page de connexion</h2>
-    <p>
-        {{ message }}
-    </p>
-    <form>
-        <textarea ng-model="msg"></textarea>
-    </form>
-    <p>
-        <em>Votre message</em> :
-        <blockquote>
-            {{msg}}
-        </blockquote>
-    </p>
-</section>
+<div id="accueil-logo">
+  logo ici
+</div>
+<div class="loginForm">
+  <form>
+    Nom d'utilisateur<br>
+    <input type="text" name="user" value="" />
+    <br>
+    Mot de passe<br>
+    <input type="password" name="mdp" value="" />
+    <br><br>
+    <input type="submit" value="Connexion" />
+  </form>
+  <br />
+  <button onclick="window.location.href='#!creation'">Création de compte </button>
+</div>
