@@ -9,7 +9,11 @@ app.config(function($routeProvider) {
         templateUrl : "vue/creation.html",
         controller : creation
     })
-      .otherwise({
+    .when("/vote", {
+        templateUrl : "vue/vote.html",
+        controller : vote
+    })
+    .otherwise({
   		redirectTo: '/'
   	});
 });
@@ -34,3 +38,14 @@ function connexion($scope, Page) {
 function creation($scope, Page) {
   Page.setTitle('creation de compte');
 }
+
+function vote($scope, Page) {
+  Page.setTitle('vote')
+}
+
+app.controller('Categories', function($scope, $http) {
+    $http.get('https://api.chucknorris.io/jokes/categories').
+        then(function(response) {
+            $scope.categ = response.data;
+        });
+});

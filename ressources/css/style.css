@@ -1,12 +1,35 @@
+
+/* login */
 .loginForm {
-  margin: auto;
-  width: 50%;
+  margin: 20px auto;
+  width: 190px;
   border: 3px solid black;
+  border-radius: 25px;
   padding: 10px;
+  text-align: center;
 }
 
 #accueil-logo {
   width: 100px;
   height: 100px;
   border: 3px solid black;
+}
+@media screen and (max-width: 480px) {
+  #accueil-logo {
+    margin:auto;
+  }
+}
+
+.vote-film-list {
+  float: left;
+}
+.titre-affiche {
+  float: right;
+}
+
+.creation-l {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }

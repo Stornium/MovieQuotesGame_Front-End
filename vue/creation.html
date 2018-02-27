@@ -1,32 +1,42 @@
-<div class="creationForm">
+<div class="creation">
   <form action="">
-    <div>
-      Nom d'utilisateur<br>
-      <input type="text" name="user" value="" />
+    <div class="creation-l">
+      <div>
+        Nom d'utilisateur<br>
+        <input type="text" name="user" value="" />
+      </div>
+
+      <div>
+        Adresse mail<br>
+        <input type="text" name="mail" value="" />
+      </div>
+
+      <div>
+        Genre préféré <br />
+        <select>
+          <option value=""></option>
+        </select>
+      </div>
     </div>
-    <div>
-      Adresse mail<br>
-      <input type="text" name="mail" value="" />
+
+    <div class="creation-l">
+      <div >
+        Mot de passe<br>
+        <input type="password" name="mdp" value="" />
+      </div>
+      <div>
+        Confirmer le mot de passe<br>
+        <input type="password" name="mdpConf" value="" />
+      </div>
+      <div>
+      </div>
     </div>
-    <div>
-      Genre préféré <br />
-      <select>
-        <option value=""></option>
-      </select>
-    </div>
-    <div>
-      Mot de passe<br>
-      <input type="password" name="mdp" value="" />
-    </div>
-    <div>
-      Confirmer le mot de passe<br>
-      <input type="password" name="mdpConf" value="" />
-    </div>
-    L'avatar ici <br />
+
+    L'image avatar ici <br />
     <input type="text" name="avatar" value="" />
     <br><br>
-    <input type="submit" value="valider" />
+    <input type="submit" value="Valider" />
   </form>
   <br />
-  <button onclick="window.location.href='#!'">Confirmer </button>
+  <button onclick="window.location.href='#!connexion'">Confirmer </button>
 </div>
