@@ -20,6 +20,15 @@
   }
 }
 
+.header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header a {
+  padding: 0 10px;
+}
+
 .vote-film-list {
   float: left;
 }
