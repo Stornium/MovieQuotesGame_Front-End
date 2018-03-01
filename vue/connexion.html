@@ -4,13 +4,12 @@
 <div class="loginForm">
   <form>
     Nom d'utilisateur<br>
-    <input type="text" name="user" value="" />
+    <input type="text" ng-model="login"/>
     <br>
     Mot de passe<br>
-    <input type="password" name="mdp" value="" />
+    <input type="password" ng-model="mdp" />
     <br><br>
-    <button onclick="window.location.href='#!vote'">Connexion </button>
-    <!-- <input type="submit" value="Connexion" /> -->
+    <button ng-click="connexion()">Connexion </button>
   </form>
-  <button onclick="window.location.href='#!creation'">Création de compte </button>
+  <button ng-click="go('/creation')">Création de compte </button>
 </div>

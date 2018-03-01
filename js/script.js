@@ -1,29 +1,29 @@
-var app = angular.module("myApp", ["ngRoute"]);
-
+var app = angular.module('myApp', ['ngRoute']);
+// gestion route de l'application
 app.config(function($routeProvider) {
   $routeProvider
-  .when("/", {
-    templateUrl : "vue/connexion.html",
+  .when('/', {
+    templateUrl : 'vue/connexion.html',
     controller : connexion
   })
-  .when("/creation", {
-    templateUrl : "vue/creation.html",
+  .when('/creation', {
+    templateUrl : 'vue/creation.html',
     controller : creation
   })
-  .when("/vote", {
-    templateUrl : "vue/vote.html",
+  .when('/vote', {
+    templateUrl : 'vue/vote.html',
     controller : vote
   })
-  .when("/classement", {
-    templateUrl : "vue/classement-utilisateurs.html",
+  .when('/classement', {
+    templateUrl : 'vue/classement-utilisateurs.html',
     controller : classement
   })
-  .when("/citations-recentes", {
-    templateUrl : "vue/citations-recentes.html",
+  .when('/citations-recentes', {
+    templateUrl : 'vue/citations-recentes.html',
     controller : citationsRecentes
   })
-  .when("/profil", {
-    templateUrl : "vue/profil.html",
+  .when('/profil', {
+    templateUrl : 'vue/profil.html',
     controller : profil
   })
   .otherwise({
@@ -31,6 +31,8 @@ app.config(function($routeProvider) {
   });
 });
 
+// création objet
+// objet page permet de changer le nom de la page
 app.factory('Page', function(){
   var title = 'acceuil';
   return {
@@ -38,11 +40,29 @@ app.factory('Page', function(){
     setTitle: function(newTitle) { title = newTitle; }
   };
 });
-
-app.controller('myCtrl', function($scope, Page) {
-  $scope.Page = Page;
+// objet Utilisateur contient les informations sur l'Utilisateur
+app.factory('Utilisateur', function(){
+  var leLogin='';
+  var leMdp='';
+  return {
+    login: function() { return leLogin; },
+    setLogin: function(newLogin) { leLogin = newLogin; },
+    mdp: function() { return leMdp; },
+    setMdp: function(newleMdp) { leMdp = newleMdp; }
+  };
 });
 
+// controller général depuis index.html
+app.controller('myCtrl', function($scope, $location, Page, Utilisateur) {
+
+  $scope.Page = Page;
+  $scope.Utilisateur = Utilisateur;
+
+  // redirection de Page
+  $scope.go = function(path) {
+    $location.path(path);
+  }
+});
 
 app.controller('Categories', function($scope, $http) {
     $http.get('https://api.chucknorris.io/jokes/categories').
@@ -52,10 +72,27 @@ app.controller('Categories', function($scope, $http) {
 });
 
 
-function connexion($scope, Page) {
+// controller page connexion
+function connexion($scope, $location, Page, Utilisateur) {
+  // nom de la page
   Page.setTitle('connexion');
+  // gestion click bouton connexion
+  $scope.connexion = function() {
+    // récupération des champs
+    Utilisateur.setLogin($scope.login);
+    Utilisateur.setMdp($scope.mdp);
+    // faire test si dans la base de données
+    // TODO
+    if($scope.login == "test"){
+      $location.path("/vote");
+    }
+    else {
+      console.log("connexion refusée");
+    }
+  }
 }
 
+// controller page creation
 function creation($scope, Page) {
   Page.setTitle('creation de compte');
 }
@@ -75,4 +112,3 @@ function citationsRecentes($scope, Page) {
 function profil($scope, Page) {
   Page.setTitle('profil');
 }
-
