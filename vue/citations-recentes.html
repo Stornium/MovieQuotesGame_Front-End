@@ -1,17 +1,16 @@
 <div  ng-include="'vue/header.html'"></div>
 
-<div ng-controller="Categories" class="vote-film-list">
-  <ul ng-repeat="x in categ">
-    <li style="border: 3px solid black;">
-      <div>
-        image ici
-      </div>
+<div ng-controller="CitationsRecentes" >
+  <ul ng-repeat="citation in citations">
+    <li>
       <div >
-      {{x}} citation
-      titre
-      résumé
-      points
-    </div>
+        <h1>Citation</h1>
+        Titre Film :{{citation.film}}
+        <br />
+        Résumé : {{citation.citation}}
+        <br />
+        <button>Points {{citation.film.score}}</button>
+      </div>
     </li>
   </ul>
 </div>

@@ -65,6 +65,12 @@ app.controller('ClassementsUser', function($scope, $http) {
         });
 });
 
+app.controller('CitationsRecentes', function($scope, $http) {
+    $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getCitations').
+        then(function(response) {
+            $scope.citations = response.data;
+        });
+});
 // controller page connexion
 function connexion($scope, $location, Page) {
   // nom de la page
