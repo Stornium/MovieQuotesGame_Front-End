@@ -5,18 +5,20 @@
     <div class="creation-l">
       <div>
         Nom d'utilisateur<br>
-        <input type="text" name="user" value="" />
+        <input type="text" ng-model="pseudo"/>
       </div>
 
       <div>
         Adresse mail<br>
-        <input type="text" name="mail" value="" />
+        <input type="text" ng-model="mail"/>
       </div>
 
       <div>
         Genre préféré <br />
-        <select>
-          <option value=""></option>
+        <select ng-model="genrePrefere">
+          <option value="Comédie">Comédie</option>
+          <option value="Drame">Drame</option>
+          <option value="Action">Action</option>
         </select>
       </div>
     </div>
@@ -24,21 +26,21 @@
     <div class="creation-l">
       <div >
         Mot de passe<br>
-        <input type="password" name="mdp" value="" />
+        <input type="password" ng-model="mdp"/>
       </div>
       <div>
         Confirmer le mot de passe<br>
-        <input type="password" name="mdpConf" value="" />
+        <input type="password" ng-model="mdpConf"/>
       </div>
       <div>
       </div>
     </div>
 
     L'image avatar ici <br />
-    <input type="text" name="avatar" value="" />
+    <input type="text" ng-model="lienAvatar"/>
     <br><br>
-    <input type="submit" value="Valider" />
+      <button>Valider</button>
   </form>
   <br />
-  <button ng-click="go('/connexion')">Confirmer </button>
+  <button ng-click="creation()">Confirmer </button>
 </div>

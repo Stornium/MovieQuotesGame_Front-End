@@ -40,47 +40,37 @@ app.factory('Page', function(){
     setTitle: function(newTitle) { title = newTitle; }
   };
 });
-// objet Utilisateur contient les informations sur l'Utilisateur
-app.factory('Utilisateur', function(){
-  var leLogin='';
-  var leMdp='';
-  return {
-    login: function() { return leLogin; },
-    setLogin: function(newLogin) { leLogin = newLogin; },
-    mdp: function() { return leMdp; },
-    setMdp: function(newleMdp) { leMdp = newleMdp; }
-  };
-});
 
 // controller général depuis index.html
-app.controller('myCtrl', function($scope, $location, Page, Utilisateur) {
+app.controller('myCtrl', function($scope, $location, Page) {
 
   $scope.Page = Page;
-  $scope.Utilisateur = Utilisateur;
-
   // redirection de Page
   $scope.go = function(path) {
     $location.path(path);
   }
 });
 
-app.controller('Categories', function($scope, $http) {
-    $http.get('https://api.chucknorris.io/jokes/categories').
+app.controller('Films', function($scope, $http) {
+    $http.get('http://localhost:40900/getFilms').
         then(function(response) {
-            $scope.categ = response.data;
+            $scope.films = response.data;
         });
 });
 
+app.controller('ClassementsUser', function($scope, $http) {
+    $http.get('http://localhost:40900/getClassement').
+        then(function(response) {
+            $scope.users = response.data;
+        });
+});
 
 // controller page connexion
-function connexion($scope, $location, Page, Utilisateur) {
+function connexion($scope, $location, Page) {
   // nom de la page
   Page.setTitle('connexion');
   // gestion click bouton connexion
   $scope.connexion = function() {
-    // récupération des champs
-    Utilisateur.setLogin($scope.login);
-    Utilisateur.setMdp($scope.mdp);
     // faire test si dans la base de données
     // TODO
     if($scope.login == "test"){
@@ -93,8 +83,40 @@ function connexion($scope, $location, Page, Utilisateur) {
 }
 
 // controller page creation
-function creation($scope, Page) {
-  Page.setTitle('creation de compte');
+function creation($scope, $http, $location, Page) {
+var url = 'http://localhost:40900/newUser';
+
+  // nom de la page
+  Page.setTitle('création de compte');
+  // gestion click bouton confirmer
+  $scope.creation = function() {
+    if($scope.pseudo == null || $scope.mdp == null) {
+        alert("Champs requis (*)");
+    }
+    else {
+        if($scope.mdp != $scope.mdpConf) {
+            alert("mot de passe pas le même");
+        }
+        else {
+        // création compte
+            var param = {
+                pseudo : $scope.pseudo,
+                mail : $scope.mail,
+                genrePrefere : $scope.genrePrefere,
+                mdp : $scope.mdp,
+                lienAvatar : $scope.lienAvatar
+            };
+
+
+            $http.post(url,  JSON.stringify(eval("(" + param + ")")))
+            .then(function (response) {
+                console.log(response.data);
+            })
+            // redirection vers connexion
+            $location.path("/");
+        }
+    }
+  }
 }
 
 function vote($scope, Page) {

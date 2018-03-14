@@ -1,8 +1,10 @@
 <div  ng-include="'vue/header.html'"></div>
 
-<div ng-controller="Categories" class="vote-film-list">
-  <ul ng-repeat="x in categ">
-    <li> {{x}} ici liste des films</li>
+<div ng-controller="Films" class="vote-film-list">
+  <ul ng-repeat="film in films">
+    <li>
+      <img class="poster" src="{{film.lien_image}}" alt="{{film.titre}}">
+    </li>
   </ul>
 </div>
 

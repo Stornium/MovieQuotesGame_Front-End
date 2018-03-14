@@ -29,9 +29,6 @@
   padding: 0 10px;
 }
 
-.vote-film-list {
-  float: left;
-}
 .titre-affiche {
   float: right;
 }
@@ -41,4 +38,22 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+}
+
+/*vote*/
+.poster {
+  width : 200px;
+  margin-right : 10px;
+
+}
+ul {
+  list-style-type: none;
+}
+
+.vote-film-list {
+    margin-right: 10px;
+    float: left;
+    height:auto;
+    max-height:700px;
+    overflow:auto;
 }
