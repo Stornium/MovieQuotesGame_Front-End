@@ -1,4 +1,3 @@
-var url 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/'
 var app = angular.module('myApp', ['ngRoute']);
 // gestion route de l'application
 app.config(function($routeProvider) {
@@ -52,7 +51,7 @@ app.controller('myCtrl', function($scope, $location, Page) {
   }
 });
 
-app.controller('Films', function($scope, $http, url) {
+app.controller('Films', function($scope, $http) {
     $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getFilms').
         then(function(response) {
             $scope.films = response.data;
