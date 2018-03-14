@@ -51,9 +51,14 @@ ul {
 }
 
 .vote-film-list {
-    margin-right: 10px;
-    float: left;
-    height:auto;
-    max-height:700px;
-    overflow:auto;
+  margin-right: 10px;
+  float: left;
+  height:auto;
+  max-height:700px;
+  overflow:auto;
+}
+
+/*classements users*/
+.classmentUsers {
+  text-align: center;
 }

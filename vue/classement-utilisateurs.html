@@ -1,16 +1,16 @@
 <div  ng-include="'vue/header.html'"></div>
 
-<div ng-controller="ClassementsUser" class="vote-film-list">
+<div ng-controller="ClassementsUser" class="classmentUsers">
   <ul ng-repeat="user in users">
-    <li style="border: 3px solid black;">
-      <div>
-        image ici
-      </div>
+    <li>
+      <img class="poster" src="{{user.lienAvatar}}" alt="Avatar_{{user.pseudo}}">
       <div >
-      {{user}} ici liste users
-      genre
-      Citation
-      Points
+        <h1>{{user.pseudo}}</h1>
+        Genre préféré : {{user.genrePrefere}}
+        <br />
+        Citation favorite : {{user.citationFav}}
+        <br />
+        <button>Points {{user.score}}</button>
     </div>
     </li>
   </ul>
