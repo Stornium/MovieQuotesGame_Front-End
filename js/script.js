@@ -39,7 +39,7 @@ app.factory('Page', function(){
   return {
     title: function() { return title; },
     setTitle: function(newTitle) { title = newTitle; },
-    token: function() { return token; },
+    getToken: function() { return token; },
     setToken: function(newToken) { token = newToken; }
   };
 });
@@ -75,20 +75,21 @@ function connexion($scope, $location, Page, $http) {
   // gestion click bouton connexion
   $scope.connexion = function() {
     // faire test si dans la base de données
-    // TODO
 
     $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/connexion?login=' + $scope.login + '&mdp=' + $scope.mdp).
        then(function(response) {
-          Page.setToken(response.data);
-          console.log(response.data);
-    });
+          console.log(Page.getToken());
+          Page.setToken(response.data.token);
+    }).then(function(){
+        console.log(Page.getToken());
 
-    if(Page.token != null){
-      $location.path("/vote");
-    }
-    else {
-      console.log("connexion refusée");
-    }
+        if(Page.getToken() != null){
+          $location.path("/vote");
+        }
+        else {
+          console.log("connexion refusée");
+        }
+    });
   }
 }
 
@@ -145,6 +146,27 @@ function citationsRecentes($scope, Page) {
   Page.setTitle('citations récentes');
 }
 
-function profil($scope, Page) {
+function profil($scope, $http, Page) {
+  var url = 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/majCompte';
+
   Page.setTitle('profil');
-}
+    $scope.maj = function() {
+      if($scope.pseudo == null || $scope.mdp == null) {
+          alert("Champs requis (*)");
+      }
+      else {
+          if($scope.mdp != $scope.mdpConf) {
+              alert("mot de passe pas le même");
+          }
+          else {
+              var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar});
+              $http.post(url,  data)
+                          .then(function (response) {
+                              console.log(response.data);
+                          });
+                          alert("Mise à jour réussie");
+          }
+      }
+    }
+ }
+
