@@ -4,12 +4,15 @@
 <div class="loginForm">
   <form>
     Nom d'utilisateur<br>
-    <input type="text" ng-model="login"/>
+    <input type="text" name="login" ng-model="login"/>
     <br>
     Mot de passe<br>
-    <input type="password" ng-model="mdp" />
-    <br><br>
-    <button ng-click="connexion()">Connexion </button>
+    <input type="password" name="mdp" ng-model="mdp" />
+    <br>
+    <span class="connexionRefusee" ng-show="refusee" >Nom d'utilisateur ou mot de passe incorrect</span>
+    <br />
+    <button type="button" ng-click="connexion()">Connexion </button>
   </form>
   <button ng-click="go('/creation')">Création de compte </button>
 </div>
+

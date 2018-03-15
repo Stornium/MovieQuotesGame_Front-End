@@ -11,6 +11,7 @@
 <div>
   <div>
     <p>
+      <h1>Résumé du film</h1>
       {{detail.resume}}
     </p>
   </div>
@@ -21,7 +22,8 @@
   </div>
 
   <div>
+    <h1>Citation du jour </h1>
     <p>{{citation.citation}}</p>
-    <button> voter</button>
+    <button href="" ng-click="voter(detail.id)"> voter</button>
   </div>
 </div>
