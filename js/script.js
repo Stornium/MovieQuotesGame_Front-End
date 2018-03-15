@@ -1,6 +1,6 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngStorage']);
 
-// définition url racine pour les requête
+// url du back
 app.constant('URL', 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT');
 // gestion route de l'application
 app.config(function($routeProvider) {
@@ -34,28 +34,25 @@ app.config(function($routeProvider) {
   });
 });
 
+
+// controller général depuis index.html
+app.controller('Ctrl', function($scope, Page, $localStorage) {
+  $scope.Page = Page;
+  $scope.storage = $localStorage.$default({
+    token: null
+  });
+});
+
 // création objet
 // objet page permet de changer le nom de la page
 app.factory('Page', function(){
   var title = 'acceuil';
-  var token = null;
   return {
     title: function() { return title; },
-    setTitle: function(newTitle) { title = newTitle; },
-    getToken: function() { return token; },
-    setToken: function(newToken) { token = newToken; }
+    setTitle: function(newTitle) { title = newTitle; }
   };
 });
 
-// controller général depuis index.html
-app.controller('myCtrl', function($scope, $location, Page) {
-
-  $scope.Page = Page;
-  // redirection de Page
-  $scope.go = function(path) {
-    $location.path(path);
-  }
-});
 
 
 app.controller('ClassementsUser', function($scope, $http, URL) {
@@ -72,7 +69,11 @@ app.controller('CitationsRecentes', function($scope, $http, URL) {
         });
 });
 // controller page connexion
-function connexion($scope, $location, Page, $http, URL) {
+function connexion($scope, $location, Page, $http, URL, $localStorage) {
+  // reset localStorage
+  $localStorage.$reset({
+      token: null
+  });
   // nom de la page
   Page.setTitle('connexion');
   // gestion click bouton connexion
@@ -81,9 +82,9 @@ function connexion($scope, $location, Page, $http, URL) {
 
     $http.get(URL+'/connexion?login=' + $scope.login + '&mdp=' + $scope.mdp).
        then(function(response) {
-          Page.setToken(response.data.token);
+          $scope.storage.token = response.data.token;
     }).then(function(){
-        if(Page.getToken() != null){
+        if($scope.storage.token != null){
           $location.path("/vote");
         }
         else {
@@ -92,7 +93,6 @@ function connexion($scope, $location, Page, $http, URL) {
     });
   }
 }
-
 // controller page creation
 function creation($scope, $http, $location, Page, URL) {
   // nom de la page
@@ -119,7 +119,10 @@ function creation($scope, $http, $location, Page, URL) {
   }
 }
 
-function vote($scope, $http, Page, $window, URL) {
+function vote($scope, $http, Page, $window, URL, $location) {
+  if($scope.storage.token == null) {
+    $location.path("/");
+  }
   Page.setTitle("vote");
   // récupération des films
   $http.get(URL+'/getFilms').
@@ -139,25 +142,34 @@ function vote($scope, $http, Page, $window, URL) {
   // envoie vote
 
   $scope.voter = function(id){
-  $http.get(URL+'/voteFilm?token='+Page.token+'&id'+$id).
-     then(function(response) {
-        $scope.citation = response.data;
-     });
+//  $http.get(URL+'/voteFilm?token='+Page.token+'&id'+id).
+//     then(function(response) {
+//        console.log(response.data)
+//     });
+console.log(Page.getToken());
   }
 
 
 }
 
-function classement($scope, Page) {
+function classement($scope, Page, $location) {
+  if($scope.storage.token == null) {
+    $location.path("/");
+  }
   Page.setTitle('classement');
 }
 
-function citationsRecentes($scope, Page) {
+function citationsRecentes($scope, Page, $location) {
+  if($scope.storage.token == null) {
+    $location.path("/");
+  }
   Page.setTitle('citations récentes');
 }
 
-function profil($scope, $http, Page) {
-  var url = 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/majCompte';
+function profil($scope, $http, Page, URL, $location) {
+  if($scope.storage.token == null) {
+    $location.path("/");
+  }
 
   Page.setTitle('profil');
     $scope.maj = function() {
@@ -166,11 +178,11 @@ function profil($scope, $http, Page) {
       }
       else {
           if($scope.mdp != $scope.mdpConf) {
-              alert("mot de passe pas le même");
+              alert("mot de passe pas non identique");
           }
           else {
               var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar});
-              $http.post(url,  data)
+              $http.post(URL+'/majCompte',  data)
                           .then(function (response) {
                               console.log(response.data);
                           });
