@@ -57,9 +57,6 @@ body {
 }
 
 .header a#profil {
-    color: #2da1c1;
-    font-size: small;
-    text-decoration: none;
     position: absolute;
     right: 0;
 }
@@ -81,16 +78,22 @@ body {
   margin-right : 10px;
 
 }
+
+.affiche {
+  width : 300px;
+}
+
 ul {
   list-style-type: none;
 }
 
 .vote-film-list {
-  margin-right: 10px;
+  margin-right: 0px;
   float: left;
   height:auto;
   max-height:700px;
   overflow:auto;
+  overflow-x:hidden;
 }
 
 /*classements users*/
