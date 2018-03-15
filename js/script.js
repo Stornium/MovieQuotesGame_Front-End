@@ -142,14 +142,21 @@ function vote($scope, $http, Page, $window, URL, $location) {
   // envoie vote
 
   $scope.voter = function(id){
-//  $http.get(URL+'/voteFilm?token='+Page.token+'&id'+id).
-//     then(function(response) {
-//        console.log(response.data)
-//     });
-console.log(Page.getToken());
+  $http.get(URL+'/voteFilm?token='+$scope.storage.token+'&id='+id).
+     then(function(response) {
+        $scope.etatVote(response.data);
+
+     });
+  };
+  $scope.etatVote = function(dejaVote) {
+      var dejaVote = dejaVote;
+      if(dejaVote == ''){
+        $scope.dejaVote = true;
+      }
+      if(dejaVote != '' && dejaVote != null){
+        $scope.voteEffectue = true;
+      }
   }
-
-
 }
 
 function classement($scope, Page, $location) {

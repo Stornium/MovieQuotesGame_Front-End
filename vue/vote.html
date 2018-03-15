@@ -25,5 +25,7 @@
     <h1>Citation du jour </h1>
     <p>{{citation.citation}}</p>
     <button href="" ng-click="voter(detail.id)"> voter</button>
+    <span ng-show="dejaVote">Vous avez déjà voter aujourd'hui</span>
+    <span ng-show="voteEffectue">Vous avez déjà voter aujourd'hui</span>
   </div>
 </div>
