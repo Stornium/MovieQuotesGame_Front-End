@@ -54,16 +54,6 @@ app.controller('myCtrl', function($scope, $location, Page) {
   }
 });
 
-app.controller('Films', function($scope, $http) {
-    $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getFilms').
-        then(function(response) {
-            $scope.films = response.data;
-        });
-    $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getCitationJour').
-        then(function(response) {
-            $scope.citation = response.data;
-        });
-});
 
 app.controller('ClassementsUser', function($scope, $http) {
     $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getClassement').
@@ -130,8 +120,21 @@ var url = 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.
   }
 }
 
-function vote($scope, Page) {
+function vote($scope, $http, Page) {
   Page.setTitle('vote');
+  $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getFilms').
+      then(function(response) {
+          $scope.films = response.data;
+          $scope.details(response.data[0]);
+      });
+  $scope.details = function(film) {
+      $scope.detail = film;
+  }
+  $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getCitationJour').
+      then(function(response) {
+          $scope.citation = response.data;
+      });
+
 }
 
 function classement($scope, Page) {

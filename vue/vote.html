@@ -1,11 +1,9 @@
 <div  ng-include="'vue/header.html'"></div>
 
-<div div ng-controller="Films">
-
 <div class="vote-film-list">
   <ul ng-repeat="film in films">
     <li>
-      <img class="poster" src="{{film.lien_image}}" alt="{{film.titre}}">
+      <img ng-click="details(film)" class="poster" ng-src="{{film.lien_image}}" alt="{{film.titre}}">
     </li>
   </ul>
 </div>
@@ -13,20 +11,17 @@
 <div>
   <div>
     <p>
-      Lorem ipsum dolor sit amet
+      {{detail.resume}}
+    </p>
   </div>
 
   <div class="titre-affiche">
-    Titre
-    <div>
-      Affiche du film séléctioné
-    </div>
+    <h1>{{detail.titre}}</h1>
+    <img class="affiche" ng-src="{{detail.lien_image}}" alt="{{film.titre}}">
   </div>
 
   <div>
     <p>{{citation.citation}}</p>
     <button> voter</button>
   </div>
-</div>
-
 </div>

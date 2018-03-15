@@ -3,7 +3,7 @@
 <div ng-controller="ClassementsUser" class="classmentUsers">
   <ul ng-repeat="user in users">
     <li>
-      <img class="poster" src="{{user.lienAvatar}}" alt="Avatar_{{user.pseudo}}">
+      <img class="poster" ng-src=="{{user.lienAvatar}}" alt="Avatar_{{user.pseudo}}">
       <div >
         <h1>{{user.pseudo}}</h1>
         Genre préféré : {{user.genrePrefere}}
