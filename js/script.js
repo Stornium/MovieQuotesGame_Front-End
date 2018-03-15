@@ -35,9 +35,12 @@ app.config(function($routeProvider) {
 // objet page permet de changer le nom de la page
 app.factory('Page', function(){
   var title = 'acceuil';
+  var token = null;
   return {
     title: function() { return title; },
-    setTitle: function(newTitle) { title = newTitle; }
+    setTitle: function(newTitle) { title = newTitle; },
+    token: function() { return token; },
+    setToken: function(newToken) { token = newToken; }
   };
 });
 
@@ -56,6 +59,10 @@ app.controller('Films', function($scope, $http) {
         then(function(response) {
             $scope.films = response.data;
         });
+    $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/getCitationJour').
+        then(function(response) {
+            $scope.citation = response.data;
+        });
 });
 
 app.controller('ClassementsUser', function($scope, $http) {
@@ -72,14 +79,21 @@ app.controller('CitationsRecentes', function($scope, $http) {
         });
 });
 // controller page connexion
-function connexion($scope, $location, Page) {
+function connexion($scope, $location, Page, $http) {
   // nom de la page
   Page.setTitle('connexion');
   // gestion click bouton connexion
   $scope.connexion = function() {
     // faire test si dans la base de données
     // TODO
-    if($scope.login == "test"){
+
+    $http.get('http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/connexion?login=' + $scope.login + '&mdp=' + $scope.mdp).
+       then(function(response) {
+          Page.setToken(response.data);
+          console.log(response.data);
+    });
+
+    if(Page.token != null){
       $location.path("/vote");
     }
     else {
@@ -90,7 +104,7 @@ function connexion($scope, $location, Page) {
 
 // controller page creation
 function creation($scope, $http, $location, Page) {
-var url = 'http://localhost:40900/newUser';
+var url = 'http://lp-miar-groupe06-cloned-stornium.c9users.io/MovieQuotesGame-1.0-SNAPSHOT/newUser';
 
   // nom de la page
   Page.setTitle('création de compte');
@@ -104,22 +118,13 @@ var url = 'http://localhost:40900/newUser';
             alert("mot de passe pas le même");
         }
         else {
-        // création compte
-            var param = {
-                pseudo : $scope.pseudo,
-                mail : $scope.mail,
-                genrePrefere : $scope.genrePrefere,
-                mdp : $scope.mdp,
-                lienAvatar : $scope.lienAvatar
-            };
-
-
-            $http.post(url,  JSON.stringify(eval("(" + param + ")")))
-            .then(function (response) {
-                console.log(response.data);
-            })
-            // redirection vers connexion
-            $location.path("/");
+            var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar});
+            $http.post(url,  data)
+                        .then(function (response) {
+                            console.log(response.data);
+                        })
+                        // redirection vers connexion
+                        $location.path("/");
         }
     }
   }

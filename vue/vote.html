@@ -1,6 +1,8 @@
 <div  ng-include="'vue/header.html'"></div>
 
-<div ng-controller="Films" class="vote-film-list">
+<div div ng-controller="Films">
+
+<div class="vote-film-list">
   <ul ng-repeat="film in films">
     <li>
       <img class="poster" src="{{film.lien_image}}" alt="{{film.titre}}">
@@ -22,7 +24,9 @@
   </div>
 
   <div>
-    <p>citation citation citation citation</p>
+    <p>{{citation.citation}}</p>
     <button> voter</button>
   </div>
+</div>
+
 </div>
