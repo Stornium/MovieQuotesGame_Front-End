@@ -18,9 +18,9 @@
     margin:auto;
   }
 }
-@media screen and (max-width: 480px) {
-  #accueil-logo {
-    margin:auto;
+@media screen and (max-width: 1300px) and  (max-height: 640px){
+  .film-gros{
+    display:none;
   }
 }
 
