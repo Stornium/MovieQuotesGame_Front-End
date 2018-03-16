@@ -188,7 +188,8 @@ function profil($scope, $http, Page, URL, $location) {
               alert("mot de passe pas non identique");
           }
           else {
-              var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar});
+              var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar,
+              "token" : $scope.storage.token});
               $http.post(URL+'/majCompte',  data)
                           .then(function (response) {
                               console.log(response.data);
