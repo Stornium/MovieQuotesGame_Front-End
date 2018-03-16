@@ -6,10 +6,10 @@
   <ul ng-repeat="citation in citations">
     <li>
       <div >
-        <h1>Citation</h1>
+        <h2>{{citation.citation}}</h2>
         Titre Film : {{citation.film.titre}}
         <br />
-        Résumé : {{citation.citation}}
+        Résumé : {{citation.film.resume}}
         <br />
         <button>Points {{citation.film.score}}</button>
       </div>
