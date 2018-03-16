@@ -1,31 +1,32 @@
 <div  ng-include="'vue/header.html'"></div>
-
-<div class="vote-film-list">
-  <ul ng-repeat="film in films">
-    <li>
-      <img ng-click="details(film)" class="poster" ng-src="{{film.lien_image}}" alt="{{film.titre}}">
-    </li>
-  </ul>
+<div ng-show="loader"  class="loader-image">
+  <img ng-src="https://i.stack.imgur.com/h6viz.gif" alt="loader image">
 </div>
-
-<div>
-  <div>
-    <p>
+<div ng-show="!loader">
+  <div class="vote-film-list">
+    <ul ng-repeat="film in films">
+      <li>
+        <img ng-click="details(film)" class="poster" ng-src="{{film.lien_image}}" alt="{{film.titre}}">
+      </li>
+    </ul>
+  </div>
+  <div class="film-l">
+    <div class="details">
+      <p>
       <h1>Résumé du film</h1>
       {{detail.resume}}
-    </p>
-  </div>
+      </p>
+      <h1>Citation du jour </h1>
+      <p>{{citation.citation}}</p>
+      <button href="" ng-click="voter(detail.id)"> voter</button>
+      <span ng-show="dejaVote">Vous avez déjà voter aujourd'hui</span>
+      <span ng-show="voteEffectue">Vous avez déjà voter aujourd'hui</span>
+    </div>
 
-  <div class="titre-affiche">
-    <h1>{{detail.titre}}</h1>
-    <img class="affiche" ng-src="{{detail.lien_image}}" alt="{{film.titre}}">
-  </div>
-
-  <div>
-    <h1>Citation du jour </h1>
-    <p>{{citation.citation}}</p>
-    <button href="" ng-click="voter(detail.id)"> voter</button>
-    <span ng-show="dejaVote">Vous avez déjà voter aujourd'hui</span>
-    <span ng-show="voteEffectue">Vous avez déjà voter aujourd'hui</span>
+    <div >
+      <h1>{{detail.titre}}</h1>
+      <img class="affiche" ng-src="{{detail.lien_image}}" alt="{{film.titre}}">
+    </div>
   </div>
 </div>
+

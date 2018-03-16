@@ -1,6 +1,8 @@
 <div  ng-include="'vue/header.html'"></div>
-
-<div ng-controller="ClassementsUser" class="classmentUsers">
+<div ng-show="loader"  class="loader-image">
+  <img ng-src="https://i.stack.imgur.com/h6viz.gif" alt="loader image">
+</div>
+<div ng-show="!loader"  class="classmentUsers">
   <ul ng-repeat="user in users">
     <li>
       <img class="poster" ng-src="{{user.lienAvatar}}" alt="Avatar_{{user.pseudo}}">
@@ -15,3 +17,4 @@
     </li>
   </ul>
 </div>
+

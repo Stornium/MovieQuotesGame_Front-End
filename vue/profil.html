@@ -1,34 +1,35 @@
 <div  ng-include="'vue/header.html'"></div>
-
 <div class="creation">
   <form action="">
     <div class="creation-l">
       <div>
-        Nom d'utilisateur<br>
-        <input type="text"  ng-model="pseudo" />
+        Nom d'utilisateur(*)<br>
+        <input type="text" name="pseudo"  ng-model="pseudo" />
       </div>
 
       <div>
         Adresse mail<br>
-        <input type="text" ng-model="mail" />
+        <input type="email" name="mail" ng-model="mail" />
       </div>
 
       <div>
         Genre préféré <br />
-        <select ng-model="genrePrefere">
-          <option value=""></option>
+        <select name="genrePrefere" ng-model="genrePrefere">
+          <option value="Comédie">Comédie</option>
+          <option value="Drame">Drame</option>
+          <option value="Action">Action</option>
         </select>
       </div>
     </div>
 
     <div class="creation-l">
       <div >
-        Mot de passe<br>
-        <input type="password" ng-model="mdp"/>
+        Mot de passe(*)<br>
+        <input name="mdp" type="password" nameng-model="mdp"/>
       </div>
       <div>
-        Confirmer le mot de passe<br>
-        <input type="password" ng-model="mdpConf"/>
+        Confirmer le mot de passe(*)<br>
+        <input name="mdpConf" type="password" ng-model="mdpConf"/>
       </div>
       <div>
 	mettre la citation du jour en citation favorite
@@ -36,9 +37,8 @@
     </div>
 
     L'image avatar ici <br />
-    <input type="text" ng-model="lienAvatar"/>
+    <input type="text" name="lienAvatar" ng-model="lienAvatar"/>
     <br><br>
-    <input type="submit" value="Valider" />
   </form>
   <br />
   <button ng-click="maj()">Confirmer </button>

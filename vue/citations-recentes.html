@@ -1,6 +1,8 @@
 <div  ng-include="'vue/header.html'"></div>
-
-<div ng-controller="CitationsRecentes" >
+<div ng-show="loader"  class="loader-image">
+  <img ng-src="https://i.stack.imgur.com/h6viz.gif" alt="loader image">
+</div>
+<div ng-show="!loader">
   <ul ng-repeat="citation in citations">
     <li>
       <div >

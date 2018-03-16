@@ -12,7 +12,6 @@
 #accueil-logo {
   width: 100px;
   height: 100px;
-  border: 3px solid black;
 }
 @media screen and (max-width: 480px) {
   #accueil-logo {
@@ -21,7 +20,7 @@
 }
 
 body {
-    background-image: url("http://simpledesktops.com/download/?desktop=4723");
+    background-color: #bbe5ef;
     background-size: contain;
 }
 
@@ -62,7 +61,7 @@ body {
 }
 
 .titre-affiche {
-  float: right;
+  padding: 50px
 }
 
 .creation-l {
@@ -90,8 +89,7 @@ ul {
 .vote-film-list {
   margin-right: 0px;
   float: left;
-  height:auto;
-  max-height:700px;
+  max-height:90vh;
   overflow:auto;
   overflow-x:hidden;
 }
@@ -103,4 +101,23 @@ ul {
 
 .connexionRefusee{
   color: crimson;
+}
+
+.loader-image {
+  text-align: center;
+}
+
+.film-l {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 20px;
+}
+.details {
+  width: 20%;
+  padding: 0px 10%;
+}
+
+.ng-view {
+  max-height : 100vh;
 }

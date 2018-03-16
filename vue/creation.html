@@ -1,21 +1,23 @@
 <div  ng-include="'vue/header-creation.html'"></div>
-
-<div class="creation">
+<div ng-show="loader"  class="loader-image">
+  <img ng-src="https://i.stack.imgur.com/h6viz.gif" alt="loader image">
+</div>
+<div ng-show="!loader" class="creation">
   <form action="">
     <div class="creation-l">
       <div>
         Nom d'utilisateur<br>
-        <input type="text" ng-model="pseudo"/>
+        <input type="text" name="pseudo" ng-model="pseudo"/>
       </div>
 
       <div>
         Adresse mail<br>
-        <input type="text" ng-model="mail"/>
+        <input type="text" name="mail" ng-model="mail"/>
       </div>
 
       <div>
         Genre préféré <br />
-        <select ng-model="genrePrefere">
+        <select name="genrePrefere" ng-model="genrePrefere">
           <option value="Comédie">Comédie</option>
           <option value="Drame">Drame</option>
           <option value="Action">Action</option>
@@ -26,20 +28,19 @@
     <div class="creation-l">
       <div >
         Mot de passe<br>
-        <input type="password" ng-model="mdp"/>
+        <input type="password" name="mdp" ng-model="mdp"/>
       </div>
       <div>
         Confirmer le mot de passe<br>
-        <input type="password" ng-model="mdpConf"/>
+        <input type="password" name="mdpConf" ng-model="mdpConf"/>
       </div>
       <div>
       </div>
     </div>
 
     L'image avatar ici <br />
-    <input type="text" ng-model="lienAvatar"/>
+    <input type="text" name="lienAvatar" ng-model="lienAvatar"/>
     <br><br>
-      <button>Valider</button>
   </form>
   <br />
   <button ng-click="creation()">Confirmer </button>

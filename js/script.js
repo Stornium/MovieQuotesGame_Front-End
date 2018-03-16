@@ -35,6 +35,8 @@ app.config(function($routeProvider) {
 });
 
 
+
+
 // controller général depuis index.html
 app.controller('Ctrl', function($scope, Page, $localStorage) {
   $scope.Page = Page;
@@ -42,6 +44,9 @@ app.controller('Ctrl', function($scope, Page, $localStorage) {
     token: null
   });
 });
+
+
+
 
 // création objet
 // objet page permet de changer le nom de la page
@@ -55,20 +60,8 @@ app.factory('Page', function(){
 
 
 
-app.controller('ClassementsUser', function($scope, $http, URL) {
-    $http.get(URL+'/getClassement').
-        then(function(response) {
-            $scope.users = response.data;
-        });
-});
 
-app.controller('CitationsRecentes', function($scope, $http, URL) {
-    $http.get(URL+'/getCitations').
-        then(function(response) {
-            $scope.citations = response.data;
-        });
-});
-// controller page connexion
+// controller vue connexion
 function connexion($scope, $location, Page, $http, URL, $localStorage) {
   // reset localStorage
   $localStorage.$reset({
@@ -76,24 +69,31 @@ function connexion($scope, $location, Page, $http, URL, $localStorage) {
   });
   // nom de la page
   Page.setTitle('connexion');
+  $scope.loader = false;
+
   // gestion click bouton connexion
   $scope.connexion = function() {
     // faire test si dans la base de données
 
     $http.get(URL+'/connexion?login=' + $scope.login + '&mdp=' + $scope.mdp).
        then(function(response) {
+          $scope.loader = true;
           $scope.storage.token = response.data.token;
     }).then(function(){
         if($scope.storage.token != null){
           $location.path("/vote");
         }
         else {
+          $scope.loader = false;
           $scope.refusee = true;
         }
     });
   }
 }
-// controller page creation
+
+
+
+// controller vue creation
 function creation($scope, $http, $location, Page, URL) {
   // nom de la page
   Page.setTitle('création de compte');
@@ -109,26 +109,32 @@ function creation($scope, $http, $location, Page, URL) {
         else {
             var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar});
             $http.post(URL+'/newUser',  data)
-                        .then(function (response) {
-                            console.log(response.data);
-                        })
-                        // redirection vers connexion
-                        $location.path("/");
+                .then(function (response) {
+                    console.log(response.data);
+                });
+                // redirection vers connexion
+                $location.path("/");
         }
     }
   }
 }
 
+
+
+// controller vue vote
 function vote($scope, $http, Page, $window, URL, $location) {
   if($scope.storage.token == null) {
     $location.path("/");
   }
   Page.setTitle("vote");
+  $scope.loader = true;
   // récupération des films
   $http.get(URL+'/getFilms').
       then(function(response) {
           $scope.films = response.data;
           $scope.details(response.data[0]);
+      }).then(function(){
+        $scope.loader = false;
       });
   $scope.details = function(lefilm) {
       $scope.detail = lefilm;
@@ -144,8 +150,10 @@ function vote($scope, $http, Page, $window, URL, $location) {
   $scope.voter = function(id){
   $http.get(URL+'/voteFilm?token='+$scope.storage.token+'&id='+id).
      then(function(response) {
+        $scope.loader = true;
         $scope.etatVote(response.data);
-
+     }).then(function(){
+       $scope.loader = false;
      });
   };
   $scope.etatVote = function(dejaVote) {
@@ -159,27 +167,50 @@ function vote($scope, $http, Page, $window, URL, $location) {
   }
 }
 
-function classement($scope, Page, $location) {
+
+
+// controller vue classement
+function classement($scope, Page, $location, URL, $http) {
   if($scope.storage.token == null) {
     $location.path("/");
   }
   Page.setTitle('classement');
+  $scope.loader = true;
+  $http.get(URL+'/getClassement').
+    then(function(response) {
+      $scope.users = response.data;
+    }).then(function(){
+      $scope.loader = false;
+    });
 }
 
-function citationsRecentes($scope, Page, $location) {
+
+
+// controller vue citations récentes
+function citationsRecentes($scope, Page, $location, URL, $http) {
   if($scope.storage.token == null) {
     $location.path("/");
   }
   Page.setTitle('citations récentes');
+  $scope.loader = true;
+  $http.get(URL+'/getCitations').
+      then(function(response) {
+          $scope.citations = response.data;
+      }).then(function(){
+        $scope.loader = false;
+      });
 }
 
-function profil($scope, $http, Page, URL, $location) {
+
+
+
+// controller vue profil
+function profil($scope, $http, Page, URL, $location, $http) {
   if($scope.storage.token == null) {
     $location.path("/");
   }
-
   Page.setTitle('profil');
-    $scope.maj = function() {
+  $scope.maj = function() {
       if($scope.pseudo == null || $scope.mdp == null) {
           alert("Champs requis (*)");
       }
@@ -191,11 +222,11 @@ function profil($scope, $http, Page, URL, $location) {
               var data = JSON.stringify({"pseudo" : $scope.pseudo, "mail" : $scope.mail, "genrePrefere" : $scope.genrePrefere, "mdp" : $scope.mdp, "lienAvatar" : $scope.lienAvatar,
               "token" : $scope.storage.token});
               $http.post(URL+'/majCompte',  data)
-                          .then(function (response) {
-                              console.log(response.data);
-                          });
-                          alert("Mise à jour réussie");
+                  .then(function (response) {
+                      console.log(response.data);
+                  });
+                  alert("Mise à jour réussie");
           }
       }
-    }
+  }
  }
