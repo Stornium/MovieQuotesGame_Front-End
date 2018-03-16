@@ -38,11 +38,14 @@ app.config(function($routeProvider) {
 
 
 // controller général depuis index.html
-app.controller('Ctrl', function($scope, Page, $localStorage) {
+app.controller('Ctrl', function($scope, Page, $localStorage, $location) {
   $scope.Page = Page;
   $scope.storage = $localStorage.$default({
     token: null
   });
+  $scope.go = function ( path ) {
+    $location.path( path );
+  };
 });
 
 
