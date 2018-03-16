@@ -18,6 +18,11 @@
     margin:auto;
   }
 }
+@media screen and (max-width: 480px) {
+  #accueil-logo {
+    margin:auto;
+  }
+}
 
 body {
     background-color: #bbe5ef;
